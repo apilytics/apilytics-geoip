@@ -19,6 +19,7 @@ USER user
 
 ENV POETRY_VERSION=1.1.13
 ENV POETRY_VIRTUALENVS_CREATE=0
+ENV POETRY_EXPERIMENTAL_NEW_INSTALLER=0
 
 RUN curl --silent --show-error https://install.python-poetry.org | python -
 
