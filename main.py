@@ -7,7 +7,6 @@ from typing import Any, cast
 
 import fastapi
 import maxminddb
-import maxminddb.types
 import pydantic
 import requests
 
