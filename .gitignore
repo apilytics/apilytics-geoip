@@ -1,0 +1,14 @@
+.DS_Store
+
+__pycache__/
+*.py[cod]
+
+.mypy_cache/
+
+.env
+.python-version
+
+*.mmdb
+
+.idea/
+.vscode/

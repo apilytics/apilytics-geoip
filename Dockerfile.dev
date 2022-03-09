@@ -1,0 +1,21 @@
+FROM python:3.10.2-slim-bullseye@sha256:bb41290f37c7c96cfddff5bb3f2ad8bddbf499a94cdcc07916c7363e42612fbf
+
+WORKDIR /app
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends --assume-yes \
+        curl
+
+ENV PATH="/root/.local/bin:${PATH}"
+ENV PYTHONUNBUFFERED=1
+ENV POETRY_VERSION=1.1.13
+ENV POETRY_VIRTUALENVS_CREATE=0
+
+RUN curl --silent --show-error https://install.python-poetry.org | python -
+
+COPY poetry.lock .
+COPY pyproject.toml .
+
+RUN poetry install --no-root
+
+CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0"]

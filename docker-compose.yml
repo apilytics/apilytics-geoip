@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  apilytics-geoip:
+    container_name: apilytics-geoip
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    env_file: .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    restart: unless-stopped
