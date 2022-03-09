@@ -7,7 +7,6 @@ from typing import Any, cast
 
 import fastapi
 import maxminddb
-import maxminddb.types
 import pydantic
 import requests
 
@@ -68,12 +67,9 @@ def startup_event() -> None:
 @app.get("/geoip")
 async def get_geoip(
     ip: str,
-    x_api_key: str = fastapi.Header(None),
+    x_api_key: str = fastapi.Header(pydantic.Required),
     response_model: type[GeoLocation] = GeoLocation,
 ) -> JsonDict:
-    if not x_api_key:
-        raise fastapi.HTTPException(status_code=401, detail="Missing X-API-Key header.")
-
     if x_api_key != API_KEY:
         raise fastapi.HTTPException(status_code=401, detail="Invalid API key.")
 
