@@ -19,6 +19,7 @@ USER user
 
 ENV POETRY_VERSION=1.1.13
 ENV POETRY_VIRTUALENVS_CREATE=0
+ENV POETRY_EXPERIMENTAL_NEW_INSTALLER=0
 
 RUN curl --silent --show-error https://install.python-poetry.org | python -
 
@@ -26,11 +27,6 @@ COPY --chown=user:user poetry.lock .
 COPY --chown=user:user pyproject.toml .
 
 RUN poetry install --no-root --no-dev
-
-COPY --chown=user:user . .
-
-RUN poetry build --format=wheel
-RUN pip install --disable-pip-version-check dist/*.whl
 
 
 FROM base as prod
@@ -40,6 +36,6 @@ USER user
 ENV PYTHONOPTIMIZE=1
 
 COPY --from=build --chown=user:user /home/user/.local /home/user/.local/
-COPY --from=build --chown=user:user /home/user/app/main.py main.py
+COPY --chown=user:user main.py .
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0"]
