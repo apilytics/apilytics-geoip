@@ -89,3 +89,8 @@ async def get_geoip(
         "region": ", ".join(region["names"]["en"] for region in data["subdivisions"]),
         "city": data["city"]["names"]["en"],
     }
+
+
+@app.get("/healthz")
+async def health_check() -> fastapi.Response:
+    return fastapi.Response(status_code=fastapi.status.HTTP_200_OK)
