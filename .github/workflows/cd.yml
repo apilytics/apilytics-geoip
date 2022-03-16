@@ -56,7 +56,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: apilytics_geoip_prod
-          tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/apilytics-geoip-prod:${{ github.sha }}
+          image: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/apilytics-geoip-prod:${{ github.sha }}
 
       - name: "Deploy the new task definition"
         uses: aws-actions/amazon-ecs-deploy-task-definition@9c18d81893224634ac107b91720119c91c1d600e  # v1.4.9
