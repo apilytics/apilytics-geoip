@@ -28,7 +28,7 @@ jobs:
       - name: "Build, tag, cache, and push the image to ECR"
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a  # v2.10.0
         with:
-          context: backend
+          context: .
           push: true
           tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_DEFAULT_REGION }}.amazonaws.com/apilytics-geoip-prod:${{ github.sha }}
           cache-from: type=gha, scope=${{ github.workflow }}
