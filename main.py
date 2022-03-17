@@ -3,7 +3,7 @@ import gzip
 import logging
 import os
 import pathlib
-from typing import Any, cast
+from typing import Any, TypeVar, cast
 
 import fastapi
 import maxminddb
@@ -36,14 +36,26 @@ class Body(pydantic.BaseModel):
 
 
 class Country(pydantic.BaseModel):
-    name: str
-    code: str
+    name: str | None
+    code: str | None
 
 
 class GeoLocation(pydantic.BaseModel):
     country: Country
-    region: str
-    city: str
+    region: str | None
+    city: str | None
+
+
+T = TypeVar("T")
+
+
+def safe_get(dict_: JsonDict | None, *keys: str, default: T | None = None) -> Any | T:
+    for key in keys:
+        try:
+            dict_ = dict_[key]  # type: ignore[index]
+        except (KeyError, TypeError):
+            return default
+    return dict_
 
 
 @app.on_event("startup")
@@ -88,11 +100,15 @@ async def get_geoip(
 
     return {
         "country": {
-            "name": data["country"]["names"]["en"],
-            "code": data["country"]["iso_code"],
+            "name": safe_get(data, "country", "names", "en"),
+            "code": safe_get(data, "country", "iso_code"),
         },
-        "region": ", ".join(region["names"]["en"] for region in data["subdivisions"]),
-        "city": data["city"]["names"]["en"],
+        "region": ", ".join(
+            safe_get(region, "names", "en")
+            for region in safe_get(data, "subdivisions", default=[])
+        )
+        or None,
+        "city": safe_get(data, "city", "names", "en"),
     }
 
 
