@@ -77,17 +77,14 @@ async def get_geoip(
     if x_api_key != API_KEY:
         raise fastapi.HTTPException(status_code=401, detail="Invalid API key.")
 
-    assert reader
+    assert reader  # Initialized in `startup_event`.
 
-    if ip := body.ip:
-        try:
-            data = cast(JsonDict, reader.get(ip))  # maxminddb's typings are bad.
-        except ValueError:
-            raise fastapi.HTTPException(
-                status_code=400, detail="Invalid IP address."
-            ) from None
-    else:
-        raise fastapi.HTTPException(status_code=400, detail="Missing IP address.")
+    try:
+        data = cast(JsonDict, reader.get(body.ip))  # maxminddb's typings are bad.
+    except ValueError:
+        raise fastapi.HTTPException(
+            status_code=400, detail="Invalid IP address."
+        ) from None
 
     return {
         "country": {
