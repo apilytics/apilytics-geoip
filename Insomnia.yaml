@@ -1,27 +1,32 @@
 _type: export
 __export_format: 4
-__export_date: 2022-03-09T19:47:39.200Z
-__export_source: insomnia.desktop.app:v2021.7.2
+__export_date: 2022-03-17T20:40:21.716Z
+__export_source: insomnia.desktop.app:v2022.1.1
 resources:
   - _id: req_e2d85cc307d744e2873b3fb99f349bec
     parentId: wrk_02461f0809304246a6fe864b67ce6be3
-    modified: 1646854803110
+    modified: 1647549601157
     created: 1646853144995
     url: http://localhost:8000/geoip
     name: /geoip
     description: ""
-    method: GET
-    body: {}
-    parameters:
-      - id: pair_5d2a50f497e542ba83b5e66f913ee5fb
-        name: ip
-        value: 82.128.239.235
-        description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "ip": "82.128.239.235"
+        }
+    parameters: []
     headers:
       - id: pair_675bd9b05a41421b81b8a57f039e2b52
         name: X-API-Key
         value: secret
         description: ""
+        disabled: false
+      - name: Content-Type
+        value: application/json
+        id: pair_ee7ec6cbd1754b2fa31e26ad177ed860
     authentication: {}
     metaSortKey: -1646853144995
     isPrivate: false
@@ -40,6 +45,27 @@ resources:
     description: ""
     scope: collection
     _type: workspace
+  - _id: req_a4780045ca804a4195c8a7ad36391799
+    parentId: wrk_02461f0809304246a6fe864b67ce6be3
+    modified: 1647376248800
+    created: 1647375330054
+    url: http://localhost:8000/healthz
+    name: /healthz
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1645104918351.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
   - _id: env_274075a2ad954ac010a2df3f5c79a290ce6a285c
     parentId: wrk_02461f0809304246a6fe864b67ce6be3
     modified: 1646853134271
