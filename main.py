@@ -31,6 +31,10 @@ reader: maxminddb.Reader | None = None
 JsonDict = dict[str, Any]
 
 
+class Body(pydantic.BaseModel):
+    ip: str
+
+
 class Country(pydantic.BaseModel):
     name: str
     code: str
@@ -64,9 +68,9 @@ def startup_event() -> None:
         logger.debug(f"GeoIP database for {month} already exists - using it.")
 
 
-@app.get("/geoip")
+@app.post("/geoip")
 async def get_geoip(
-    ip: str,
+    body: Body,
     x_api_key: str = fastapi.Header(pydantic.Required),
     response_model: type[GeoLocation] = GeoLocation,
 ) -> JsonDict:
@@ -74,12 +78,16 @@ async def get_geoip(
         raise fastapi.HTTPException(status_code=401, detail="Invalid API key.")
 
     assert reader
-    try:
-        data = cast(JsonDict, reader.get(ip))  # maxminddb's typings are bad.
-    except ValueError:
-        raise fastapi.HTTPException(
-            status_code=400, detail="Invalid IP address."
-        ) from None
+
+    if ip := body.ip:
+        try:
+            data = cast(JsonDict, reader.get(ip))  # maxminddb's typings are bad.
+        except ValueError:
+            raise fastapi.HTTPException(
+                status_code=400, detail="Invalid IP address."
+            ) from None
+    else:
+        raise fastapi.HTTPException(status_code=400, detail="Missing IP address.")
 
     return {
         "country": {
