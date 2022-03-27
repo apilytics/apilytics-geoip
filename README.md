@@ -18,7 +18,8 @@
 
 5. Run the app: `docker-compose up`
 
-6. Access the API from `localhost:8000/geoip?ip=<ip-here>`, remember to pass the value of `API_KEY` env variable in the `X-API-Key` header.
+6. Access the API from [localhost:8000](http://localhost:8000).
+   Import the provided [Insomnia file](./Insomnia.yaml) to [Insomnia](https://insomnia.rest/download) for easily trying the API.
 
 ## Environment variables
 
