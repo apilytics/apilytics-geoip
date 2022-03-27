@@ -1,13 +1,13 @@
 _type: export
 __export_format: 4
-__export_date: 2022-03-17T20:40:21.716Z
-__export_source: insomnia.desktop.app:v2022.1.1
+__export_date: 2022-03-27T16:18:37.689Z
+__export_source: insomnia.desktop.app:v2022.2.1
 resources:
   - _id: req_e2d85cc307d744e2873b3fb99f349bec
     parentId: wrk_02461f0809304246a6fe864b67ce6be3
-    modified: 1647549601157
+    modified: 1648397900217
     created: 1646853144995
-    url: http://localhost:8000/geoip
+    url: "{{ _.url }}/geoip"
     name: /geoip
     description: ""
     method: POST
@@ -19,14 +19,14 @@ resources:
         }
     parameters: []
     headers:
-      - id: pair_675bd9b05a41421b81b8a57f039e2b52
-        name: X-API-Key
-        value: secret
-        description: ""
-        disabled: false
       - name: Content-Type
         value: application/json
         id: pair_ee7ec6cbd1754b2fa31e26ad177ed860
+      - id: pair_675bd9b05a41421b81b8a57f039e2b52
+        name: X-API-Key
+        value: "{{ _.apiKey }}"
+        description: ""
+        disabled: false
     authentication: {}
     metaSortKey: -1646853144995
     isPrivate: false
@@ -47,9 +47,9 @@ resources:
     _type: workspace
   - _id: req_a4780045ca804a4195c8a7ad36391799
     parentId: wrk_02461f0809304246a6fe864b67ce6be3
-    modified: 1647376248800
+    modified: 1648384699768
     created: 1647375330054
-    url: http://localhost:8000/healthz
+    url: "{{ _.url }}/healthz "
     name: /healthz
     description: ""
     method: GET
@@ -68,11 +68,11 @@ resources:
     _type: request
   - _id: env_274075a2ad954ac010a2df3f5c79a290ce6a285c
     parentId: wrk_02461f0809304246a6fe864b67ce6be3
-    modified: 1646853134271
+    modified: 1648333927695
     created: 1646853134271
     name: Base Environment
     data: {}
-    dataPropertyOrder: null
+    dataPropertyOrder: {}
     color: null
     isPrivate: false
     metaSortKey: 1646853134271
@@ -92,3 +92,19 @@ resources:
     contents: ""
     contentType: yaml
     _type: api_spec
+  - _id: env_ba1ee31ad47b4b39b55a36a87b097dde
+    parentId: env_274075a2ad954ac010a2df3f5c79a290ce6a285c
+    modified: 1648333989287
+    created: 1648333930108
+    name: local
+    data:
+      url: http://localhost:3000
+      apiKey: secret
+    dataPropertyOrder:
+      "&":
+        - url
+        - apiKey
+    color: null
+    isPrivate: false
+    metaSortKey: 1648333930108
+    _type: environment
