@@ -23,4 +23,4 @@
 
 ## Environment variables
 
-- Copy the template env file: `cp .env.template .env`.
+- Copy the template env file: `cp .env.template .env`
