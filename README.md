@@ -19,7 +19,7 @@
 5. Run the app: `docker-compose up`
 
 6. Access the API from [localhost:8000](http://localhost:8000).
-   Import the provided [Insomnia file](./Insomnia.yaml) to [Insomnia](https://insomnia.rest/download) for easily trying the API.
+   Import the provided [Insomnia file](./Insomnia.yaml) into [Insomnia](https://insomnia.rest/download) for easily trying out the API.
 
 ## Environment variables
 
