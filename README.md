@@ -1,6 +1,6 @@
 # Apilytics GeoIP
 
-[![ci](https://github.com/blomqma/apilytics-geoip/actions/workflows/ci.yml/badge.svg)](https://github.com/blomqma/apilytics-geoip/actions)
+[![ci](https://github.com/apilytics/apilytics-geoip/actions/workflows/ci.yml/badge.svg)](https://github.com/apilytics/apilytics-geoip/actions)
 
 ## Prerequisites
 
@@ -8,7 +8,7 @@
 
 ## Get the development environment up and running
 
-1. Clone this repository with: `git clone git@github.com:blomqma/apilytics-geoip.git`
+1. Clone this repository with: `git clone git@github.com:apilytics/apilytics-geoip.git`
 
 2. `cd apilytics-geoip`
 
